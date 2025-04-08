@@ -1,20 +1,3 @@
-a faire: faire la generation des shemas pour chaque table avec un script
-
-faire la generation de la commande  bq mkdef --format=csv "gs:/i/lpv-flght-files/Air Traffic/actual/schema1/*.csv" actual_shema1.json > table_def.json avec un script
-
-modifier skip leading rows dans le json généré avec un script
-
-
-quelles sont les etapes necessaires a la creation de mes externals
--génération des différents schemas
-
--génération du json schema nesessaire au json de creation de table pour chaque schema différent
-
-
-
-commande pour creer la table bq mk --external_table_definition=table_def.json project_id:dataset_id.table_name
-avec les bons trucs bq mk --external_table_definition=./jsons/actual_schema_EXTERNAL1_def.json practice-modern-data-platform:air_traffic_EXTERNAL.actual_EXTERNAL1
-
 
 Les étapes pour créer une external:
 
@@ -22,3 +5,12 @@ Les étapes pour créer une external:
 2. script make_shema_json.py: : lit le schemas_source.json, et genere les différents schemas au format json
 3. script generate_table_def.py: génère les fichiers source_schemas_EXTERNALn_def.json, qui sont utilisable pour creer la table dans bq.
 4. script create_external.sh: lance la commande bq pour créer la table, a partir du _def exploitable.
+5. placer les fichiers dans gcs: lpv-flight-files/Air/traffic/path/table_name/shemaN/in
+
+
+A faire pour les external: verifier ce qui se passe si j'ajoute un nouveau file, avec un schema identique a un shema déja existant: il ne faut pas recreer la table
+
+organisation des fichiers json:
+
+trois types de fichiers
+

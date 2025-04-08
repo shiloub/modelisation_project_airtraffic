@@ -1,0 +1,5 @@
+{
+    "citycode,cityname,countrycode,countryname,regioncode,regionname,subcontinentcode,subcontinentname,continentcode,continentname,iso_code": [
+        "ref_geography_20230705.csv"
+    ]
+}

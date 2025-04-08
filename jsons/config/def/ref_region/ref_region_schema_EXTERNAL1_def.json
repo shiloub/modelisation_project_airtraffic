@@ -1,0 +1,41 @@
+{
+    "csvOptions": {
+        "allowJaggedRows": false,
+        "allowQuotedNewlines": false,
+        "encoding": "UTF-8",
+        "fieldDelimiter": ";",
+        "skipLeadingRows": 1
+    },
+    "schema": {
+        "fields": [
+            {
+                "name": "Region_Code",
+                "type": "STRING"
+            },
+            {
+                "name": "Region",
+                "type": "STRING"
+            },
+            {
+                "name": "Region_Code_LVMH",
+                "type": "STRING"
+            },
+            {
+                "name": "Region_LVMH",
+                "type": "STRING"
+            },
+            {
+                "name": "Country_Code",
+                "type": "STRING"
+            },
+            {
+                "name": "Country",
+                "type": "STRING"
+            }
+        ]
+    },
+    "sourceFormat": "CSV",
+    "sourceUris": [
+        "gs://lpv-flight-files/Air Traffic/referential/ref_region/schema1/in/*.csv"
+    ]
+}

@@ -1,0 +1,46 @@
+[
+    {
+        "name": "citycode",
+        "type": "STRING"
+    },
+    {
+        "name": "cityname",
+        "type": "STRING"
+    },
+    {
+        "name": "countrycode",
+        "type": "STRING"
+    },
+    {
+        "name": "countryname",
+        "type": "STRING"
+    },
+    {
+        "name": "regioncode",
+        "type": "STRING"
+    },
+    {
+        "name": "regionname",
+        "type": "STRING"
+    },
+    {
+        "name": "subcontinentcode",
+        "type": "STRING"
+    },
+    {
+        "name": "subcontinentname",
+        "type": "STRING"
+    },
+    {
+        "name": "continentcode",
+        "type": "STRING"
+    },
+    {
+        "name": "continentname",
+        "type": "STRING"
+    },
+    {
+        "name": "iso_code",
+        "type": "STRING"
+    }
+]

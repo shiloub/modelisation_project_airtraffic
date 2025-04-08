@@ -5,4 +5,5 @@ if [ $# -ne 4 ]; then
   exit 1
 fi
 
+bq rm -f -t $2:$3.$4_EXTERNAL$1
 bq mk --external_table_definition=./jsons/$4_schema_EXTERNAL$1_def.json $2:$3.$4_EXTERNAL$1

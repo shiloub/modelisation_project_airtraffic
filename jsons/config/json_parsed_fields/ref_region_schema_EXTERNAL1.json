@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Region_Code",
+        "type": "STRING"
+    },
+    {
+        "name": "Region",
+        "type": "STRING"
+    },
+    {
+        "name": "Region_Code_LVMH",
+        "type": "STRING"
+    },
+    {
+        "name": "Region_LVMH",
+        "type": "STRING"
+    },
+    {
+        "name": "Country_Code",
+        "type": "STRING"
+    },
+    {
+        "name": "Country",
+        "type": "STRING"
+    }
+]
