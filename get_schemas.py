@@ -67,7 +67,7 @@ def make_headers_json(path:str, files, table_name, previous_schemas):
         raise ValueError("no file found in the bucket")
     if not schemas_files_dict:
         raise ValueError(f"no csv for table {table_name} in {path}")
-    with open(f"./jsons/schemas_{table_name}.json", "w", encoding="UTF-8") as f:
+    with open(f"./jsons/config/csv_schemas/schemas_{table_name}.json", "w", encoding="UTF-8") as f:
         json.dump(schemas_files_dict, f, ensure_ascii=False, indent=4)
         
 
@@ -77,7 +77,7 @@ def main():
         exit(0)
     folder_path = sys.argv[1]
     table_name = sys.argv[2]
-    previous = get_previous_schema_file(f"./jsons/schemas_{table_name}.json")
+    previous = get_previous_schema_file(f"./jsons/config/csv_schemas/schemas_{table_name}.json")
     print(previous)
     files = list_folder(folder_path)
     make_headers_json(folder_path, files, table_name, previous)

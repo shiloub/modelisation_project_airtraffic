@@ -37,9 +37,9 @@ def main():
     n = sys.argv[2]
     bucket_name = sys.argv[3]
     path = sys.argv[4]
-    schema = read_json(f"./jsons/{table_name}_schema_EXTERNAL{n}.json")
+    schema = read_json(f"./jsons/config/json_parsed_fields/{table_name}/{table_name}_schema_EXTERNAL{n}.json")
     json_def = generate_table_def_json(schema, f"gs://{bucket_name}/{path}/{table_name}/schema{n}/in/*.csv")
-    make_json_file(f"./jsons/{table_name}_schema_EXTERNAL{n}_def.json", json_def)
+    make_json_file(f"./jsons/config/def/{table_name}/{table_name}_schema_EXTERNAL{n}_def.json", json_def)
     
 if __name__ == "__main__":
     main()
