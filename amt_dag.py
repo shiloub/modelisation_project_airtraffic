@@ -16,7 +16,7 @@ import gzip
 import pandas as pd
 from datetime import datetime
 
-BUCKET_NAME = "modelisation-bucket"
+BUCKET_NAME = "modelisation-bucket-eu"
 PREFIX = "Air Traffic/actual/"
 INVALID_PREFIX = "not_ready_to_load_yet_but_its_a_question_of_minutes/actual/"
 VALID_PREFIX = "ready_to_load/actual/"
@@ -24,7 +24,7 @@ VALID_PREFIX = "ready_to_load/actual/"
 def check_files(ti):
     valid_files = []
     invalid_files = []
-    correct_schema = "flight_leg_operating_carrier,flight_leg_international,flight_leg_origin_airport,flight_leg_origin_terminal,flight_leg_origin_city,flight_leg_origin_region,flight_leg_origin_country,flight_leg_destination_airport,flight_leg_destination_city,flight_leg_destination_region,flight_leg_destination_country,flight_leg_departure_date,extraction_date,pax_profile,pax_transferring_leg_origin,pax_nationality,pax,processingyear,processingmonth,processingday"
+    correct_schemas = ["flight_leg_operating_carrier,flight_leg_international,flight_leg_origin_airport,flight_leg_origin_terminal,flight_leg_origin_city,flight_leg_origin_region,flight_leg_origin_country,flight_leg_destination_airport,flight_leg_destination_city,flight_leg_destination_region,flight_leg_destination_country,flight_leg_departure_date,extraction_date,pax_profile,pax_transferring_leg_origin,pax_nationality,pax,processingyear,processingmonth,processingday", "flight_leg_operating_carrier,flight_leg_international,flight_leg_origin_airport,flight_leg_origin_terminal,flight_leg_origin_city,flight_leg_origin_region,flight_leg_origin_country,flight_leg_destination_airport,flight_leg_destination_city,flight_leg_destination_region,flight_leg_destination_country,flight_leg_departure_date,extraction_date,pax_profile,pax_nationality,pax_transferring_leg_origin,pax", "flight_leg_operating_carrier,flight_leg_international,flight_leg_origin_airport,flight_leg_origin_terminal,flight_leg_origin_city,flight_leg_origin_region,flight_leg_origin_country,flight_leg_destination_airport,flight_leg_destination_city,flight_leg_destination_region,flight_leg_destination_country,flight_leg_departure_date,extraction_date,pax_profile,pax_transferring_leg_origin,pax_nationality,pax"]
     storage_client = GCSHook()
     files = ti.xcom_pull(task_ids="list_actual_folder")
     if files:
@@ -34,10 +34,12 @@ def check_files(ti):
                 with gzip.open(f, "rt") as gz_file:
                     df = pd.read_csv(gz_file, nrows=0)
             string_schema = ",".join(df.columns)
-            if (string_schema == correct_schema):
+            if (string_schema in correct_schemas):
                 valid_files.append(file)
+                print("valid:", string_schema)
             else:
                 invalid_files.append(file)
+                print("invalid:", string_schema)
         
         ti.xcom_push(key="valid_files", value=valid_files)
         ti.xcom_push(key="invalid_files", value=invalid_files)
@@ -68,56 +70,56 @@ def move_files(**kwargs):
         source_bucket.copy_blob(source_blob, destination_bucket, INVALID_PREFIX + file_name)
         print(f"Fichier invalide {file_name} déplacé vers {destination_bucket}/{INVALID_PREFIX + file_name}")
         
-def modifie_wrong_files(**kwargs):
-    ti = kwargs["ti"]
-    invalid_files = ti.xcom_pull(task_ids = "list_invalid_folder")
-    missing_cols = ["processingyear","processingmonth","processingday"]
-    col_to_swap = ["pax_transferring_leg_origin","pax_nationality"]
+# def modifie_wrong_files(**kwargs):
+#     ti = kwargs["ti"]
+#     invalid_files = ti.xcom_pull(task_ids = "list_invalid_folder")
+#     missing_cols = ["processingyear","processingmonth","processingday"]
+#     col_to_swap = ["pax_transferring_leg_origin","pax_nationality"]
     
     
-    # fs = gcsfs.GCSFileSystem()
-    # test_file = invalid_files[0]
+#     # fs = gcsfs.GCSFileSystem()
+#     # test_file = invalid_files[0]
     
-    # with fs.open(f"{BUCKET_NAME}/{test_file}", 'rb') as f:
-    #     df = pd.read_csv(f, compression="gzip")
+#     # with fs.open(f"{BUCKET_NAME}/{test_file}", 'rb') as f:
+#     #     df = pd.read_csv(f, compression="gzip")
     
-    # for column in missing_cols:
-    #     df[column] = None
+#     # for column in missing_cols:
+#     #     df[column] = None
     
-    # df[col_to_swap[0]], df[col_to_swap[1]] = df[col_to_swap[1]], df[col_to_swap[0]]
+#     # df[col_to_swap[0]], df[col_to_swap[1]] = df[col_to_swap[1]], df[col_to_swap[0]]
     
-    # valid_file_path = f"{VALID_PREFIX}{test_file}"
+#     # valid_file_path = f"{VALID_PREFIX}{test_file}"
     
-    # with fs.open(f"{BUCKET_NAME}/{valid_file_path}", 'wb') as f:
-    #     df.to_csv(f, index=False, compression="gzip")
+#     # with fs.open(f"{BUCKET_NAME}/{valid_file_path}", 'wb') as f:
+#     #     df.to_csv(f, index=False, compression="gzip")
     
-    # -----------------------------------------------------
+#     # -----------------------------------------------------
     
-    gcs_hook = GCSHook()
-    invalid_files = invalid_files[1:]
-    test_file = invalid_files[0]
-    print(invalid_files)
-    print()
-    print(test_file)
+#     gcs_hook = GCSHook()
+#     invalid_files = invalid_files[1:]
+#     test_file = invalid_files[0]
+#     print(invalid_files)
+#     print()
+#     print(test_file)
     
-    file_content = gcs_hook.download(bucket_name=BUCKET_NAME, object_name=test_file)
-    print("download ok")
+#     file_content = gcs_hook.download(bucket_name=BUCKET_NAME, object_name=test_file)
+#     print("download ok")
     
-    with BytesIO(file_content) as f:
-        with gzip.open(f, "rt") as gz_file:
-            df = pd.read_csv(gz_file)
-    print("stream ok and load df ok")
-    for column in missing_cols:
-        df[column] = None
-    df[col_to_swap[0]], df[col_to_swap[1]] = df[col_to_swap[1]], df[col_to_swap[0]]
-    valid_file_path = f"{VALID_PREFIX}{test_file}"
-    print("transfo ok")
-    output_stream = BytesIO()
-    df.to_csv(output_stream, index=False, compression="gzip")
-    print("df to csv ok")
-    output_stream.seek(0)
-    gcs_hook.upload(bucket_name=BUCKET_NAME, object_name=valid_file_path, data=output_stream)
-    print("upload ok")
+#     with BytesIO(file_content) as f:
+#         with gzip.open(f, "rt") as gz_file:
+#             df = pd.read_csv(gz_file)
+#     print("stream ok and load df ok")
+#     for column in missing_cols:
+#         df[column] = None
+#     df[col_to_swap[0]], df[col_to_swap[1]] = df[col_to_swap[1]], df[col_to_swap[0]]
+#     valid_file_path = f"{VALID_PREFIX}{test_file}"
+#     print("transfo ok")
+#     output_stream = BytesIO()
+#     df.to_csv(output_stream, index=False, compression="gzip")
+#     print("df to csv ok")
+#     output_stream.seek(0)
+#     gcs_hook.upload(bucket_name=BUCKET_NAME, object_name=valid_file_path, data=output_stream)
+#     print("upload ok")
 
 
 default_args = {
@@ -160,11 +162,11 @@ with DAG(
     )
     
     
-    modifie_and_load_invalid_files = PythonOperator(
-        task_id = "modify_invalid_file_and_move_them",
-        provide_context = True,
-        python_callable = modifie_wrong_files,
-        dag = dag
-    )
+    # modifie_and_load_invalid_files = PythonOperator(
+    #     task_id = "modify_invalid_file_and_move_them",
+    #     provide_context = True,
+    #     python_callable = modifie_wrong_files,
+    #     dag = dag
+    # )
 
-get_list_actual >> check_files >> move_files >> get_list_invalid >> modifie_and_load_invalid_files
+get_list_actual >> check_files >> move_files >> get_list_invalid

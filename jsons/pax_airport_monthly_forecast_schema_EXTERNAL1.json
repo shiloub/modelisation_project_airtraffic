@@ -1,0 +1,58 @@
+[
+    {
+        "name": "flight_leg_international",
+        "type": "STRING"
+    },
+    {
+        "name": "flight_leg_origin_airport",
+        "type": "STRING"
+    },
+    {
+        "name": "flight_leg_origin_city",
+        "type": "STRING"
+    },
+    {
+        "name": "flight_leg_origin_region",
+        "type": "STRING"
+    },
+    {
+        "name": "flight_leg_origin_country",
+        "type": "STRING"
+    },
+    {
+        "name": "flight_leg_destination_airport",
+        "type": "STRING"
+    },
+    {
+        "name": "flight_leg_destination_city",
+        "type": "STRING"
+    },
+    {
+        "name": "flight_leg_destination_region",
+        "type": "STRING"
+    },
+    {
+        "name": "flight_leg_destination_country",
+        "type": "STRING"
+    },
+    {
+        "name": "flight_leg_departure_date",
+        "type": "STRING"
+    },
+    {
+        "name": "extraction_date",
+        "type": "STRING"
+    },
+    {
+        "name": "pax_nationality",
+        "type": "STRING"
+    },
+    {
+        "name": "pax",
+        "type": "STRING"
+    },
+    {
+        "name": "confidence_index",
+        "type": "STRING"
+    }
+]

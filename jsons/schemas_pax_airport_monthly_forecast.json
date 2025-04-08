@@ -1,0 +1,6 @@
+{
+    "flight_leg_international,flight_leg_origin_airport,flight_leg_origin_city,flight_leg_origin_region,flight_leg_origin_country,flight_leg_destination_airport,flight_leg_destination_city,flight_leg_destination_region,flight_leg_destination_country,flight_leg_departure_date,extraction_date,pax_nationality,pax,confidence_index": [
+        "pax_airport_monthly_forecast_202309_202408_20230910.csv",
+        "pax_airport_monthly_forecast_202310_202409_20231010.csv"
+    ]
+}

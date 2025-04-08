@@ -1,0 +1,49 @@
+{
+    "csvOptions": {
+        "allowJaggedRows": false,
+        "allowQuotedNewlines": false,
+        "encoding": "UTF-8",
+        "fieldDelimiter": ",",
+        "skipLeadingRows": 1
+    },
+    "schema": {
+        "fields": [
+            {
+                "name": "airportiatacode",
+                "type": "STRING"
+            },
+            {
+                "name": "airporticaocode",
+                "type": "STRING"
+            },
+            {
+                "name": "terminalcode",
+                "type": "STRING"
+            },
+            {
+                "name": "airportname",
+                "type": "STRING"
+            },
+            {
+                "name": "citycode",
+                "type": "STRING"
+            },
+            {
+                "name": "activestatus",
+                "type": "STRING"
+            },
+            {
+                "name": "airportlatitude",
+                "type": "STRING"
+            },
+            {
+                "name": "airportlongitude",
+                "type": "STRING"
+            }
+        ]
+    },
+    "sourceFormat": "CSV",
+    "sourceUris": [
+        "gs://lpv-flight-files/Air Traffic/referential/ref_airport/schema1/in/*.csv"
+    ]
+}

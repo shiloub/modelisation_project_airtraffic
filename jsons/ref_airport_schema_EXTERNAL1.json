@@ -1,0 +1,34 @@
+[
+    {
+        "name": "airportiatacode",
+        "type": "STRING"
+    },
+    {
+        "name": "airporticaocode",
+        "type": "STRING"
+    },
+    {
+        "name": "terminalcode",
+        "type": "STRING"
+    },
+    {
+        "name": "airportname",
+        "type": "STRING"
+    },
+    {
+        "name": "citycode",
+        "type": "STRING"
+    },
+    {
+        "name": "activestatus",
+        "type": "STRING"
+    },
+    {
+        "name": "airportlatitude",
+        "type": "STRING"
+    },
+    {
+        "name": "airportlongitude",
+        "type": "STRING"
+    }
+]

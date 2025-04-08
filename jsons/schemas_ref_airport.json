@@ -1,0 +1,8 @@
+{
+    "airportiatacode,airporticaocode,terminalcode,airportname,citycode,activestatus,airportlatitude,airportlongitude": [
+        "ref_airport_20230705.csv"
+    ],
+    "airportiatacode,airporticaocode,terminalcode,airportname,citycode,activestatus,airportlatitude,airportlongitude,TERMINALMARKETINGNAME": [
+        "ref_airport_20230908.csv"
+    ]
+}
